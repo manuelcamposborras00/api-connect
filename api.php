@@ -53,8 +53,8 @@ $payload = json_encode([
     ]
 ]);
 
-// Endpoint de Gemini (v1beta por compatibilidad con modelos flash)
-$url = "https://generativelanguage.googleapis.com/v1beta/models/" . AI_MODEL . ":generateContent?key=" . AI_API_KEY;
+// Endpoint de Gemini
+$url = "https://generativelanguage.googleapis.com/v1/models/" . AI_MODEL . ":generateContent?key=" . AI_API_KEY;
 
 $ch = curl_init($url);
 curl_setopt_array($ch, [
