@@ -6,7 +6,7 @@ if (file_exists(__DIR__ . '/config.php')) {
     require_once __DIR__ . '/config.php';
 } else {
     define('AI_API_KEY',    getenv('AI_API_KEY')    ?: '');
-    define('AI_MODEL',      getenv('AI_MODEL')      ?: 'gemini-1.5-flash-8b');
+    define('AI_MODEL',      getenv('AI_MODEL')      ?: 'gemini-2.5-flash');
     define('AI_MAX_TOKENS', (int)(getenv('AI_MAX_TOKENS') ?: 1024));
 }
 
@@ -54,7 +54,7 @@ $payload = json_encode([
 ]);
 
 // Gemini endpoint
-$url = "https://generativelanguage.googleapis.com/v1/models/" . AI_MODEL . ":generateContent?key=" . AI_API_KEY;
+$url = "https://generativelanguage.googleapis.com/v1beta/models/" . AI_MODEL . ":generateContent?key=" . AI_API_KEY;
 
 $ch = curl_init($url);
 curl_setopt_array($ch, [
