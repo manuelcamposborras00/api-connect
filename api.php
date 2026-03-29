@@ -5,12 +5,9 @@ header('Content-Type: application/json; charset=utf-8');
 if (file_exists(__DIR__ . '/config.php')) {
     require_once __DIR__ . '/config.php';
 } else {
-    function _env(string $key, string $default = ''): string {
-        return getenv($key) ?: ($_ENV[$key] ?? ($_SERVER[$key] ?? $default));
-    }
-    define('AI_API_KEY',    _env('AI_API_KEY'));
-    define('AI_MODEL',      _env('AI_MODEL', 'gemini-1.5-flash'));
-    define('AI_MAX_TOKENS', (int)(_env('AI_MAX_TOKENS', '1024')));
+    define('AI_API_KEY',    getenv('AI_API_KEY')    ?: '');
+    define('AI_MODEL',      getenv('AI_MODEL')      ?: 'gemini-2.0-flash');
+    define('AI_MAX_TOKENS', (int)(getenv('AI_MAX_TOKENS') ?: 1024));
 }
 
 // Solo POST
