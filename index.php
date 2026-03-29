@@ -145,7 +145,7 @@
         const prompt = promptEl.value.trim();
         if (!prompt) return;
 
-        // Estado: enviando
+        // Sending state
         submitBtn.disabled = true;
         statusEl.textContent = 'Sending…';
         responseBox.style.display = 'none';
