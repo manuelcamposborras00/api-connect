@@ -1,7 +1,14 @@
 <?php
 header('Content-Type: application/json; charset=utf-8');
 
-require_once __DIR__ . '/config.php';
+// Local: usa config.php. Producción: lee variables de entorno.
+if (file_exists(__DIR__ . '/config.php')) {
+    require_once __DIR__ . '/config.php';
+} else {
+    define('AI_API_KEY',    getenv('AI_API_KEY')    ?: '');
+    define('AI_MODEL',      getenv('AI_MODEL')      ?: 'gemini-1.5-flash');
+    define('AI_MAX_TOKENS', (int)(getenv('AI_MAX_TOKENS') ?: 1024));
+}
 
 // Solo POST
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
