@@ -13,7 +13,7 @@ if (file_exists(__DIR__ . '/config.php')) {
 // Solo POST
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     http_response_code(405);
-    echo json_encode(['error' => 'Método no permitido.']);
+    echo json_encode(['error' => 'Method not allowed.']);
     exit;
 }
 
@@ -23,13 +23,13 @@ $prompt = trim($body['prompt'] ?? '');
 
 if ($prompt === '') {
     http_response_code(400);
-    echo json_encode(['error' => 'El mensaje no puede estar vacío.']);
+    echo json_encode(['error' => 'Message cannot be empty.']);
     exit;
 }
 
 if (mb_strlen($prompt) > 4000) {
     http_response_code(400);
-    echo json_encode(['error' => 'El mensaje supera el límite de 4000 caracteres.']);
+    echo json_encode(['error' => 'Message exceeds the 4000 character limit.']);
     exit;
 }
 
@@ -75,7 +75,7 @@ curl_close($ch);
 // Error de red
 if ($raw === false || $curlErr !== '') {
     http_response_code(502);
-    echo json_encode(['error' => 'No se pudo contactar con la API de Gemini. Inténtalo de nuevo.']);
+    echo json_encode(['error' => 'Could not reach the API. Please try again.']);
     exit;
 }
 
@@ -83,17 +83,17 @@ $data = json_decode($raw, true);
 
 // Error devuelto por la API (Gemini suele devolverlo en un array con 'error')
 if ($httpCode !== 200) {
-    $apiMsg = $data['error']['message'] ?? 'Error desconocido de la API de Gemini.';
+    $apiMsg = $data['error']['message'] ?? 'Unknown API error.';
     http_response_code(502);
-    echo json_encode(['error' => 'La API respondió con un error: ' . $apiMsg]);
+    echo json_encode(['error' => 'API error: ' . $apiMsg]);
     exit;
 }
 
 // Verificar que candidates existe y no está vacío (puede ocurrir si Gemini bloquea la respuesta)
 if (empty($data['candidates'][0])) {
-    $blockReason = $data['promptFeedback']['blockReason'] ?? 'desconocido';
+    $blockReason = $data['promptFeedback']['blockReason'] ?? 'unknown';
     http_response_code(502);
-    echo json_encode(['error' => 'La respuesta fue bloqueada por Gemini. Motivo: ' . $blockReason]);
+    echo json_encode(['error' => 'Response blocked by Gemini. Reason: ' . $blockReason]);
     exit;
 }
 
@@ -102,7 +102,7 @@ $text = $data['candidates'][0]['content']['parts'][0]['text'] ?? '';
 
 if ($text === '') {
     http_response_code(502);
-    echo json_encode(['error' => 'La API de Gemini devolvió una respuesta vacía.']);
+    echo json_encode(['error' => 'The API returned an empty response.']);
     exit;
 }
 

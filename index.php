@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -116,17 +116,17 @@
     <form id="chat-form">
         <textarea
             id="prompt"
-            placeholder="Escribe tu mensaje aquí..."
+            placeholder="Type your message here..."
             maxlength="4000"
             required
         ></textarea>
         <br>
-        <button type="submit" id="submit-btn">Enviar</button>
+        <button type="submit" id="submit-btn">Send</button>
         <p id="status"></p>
     </form>
 
     <div id="response-box">
-        <h2>Respuesta</h2>
+        <h2>Response</h2>
         <div id="response-text"></div>
     </div>
 </main>
@@ -147,7 +147,7 @@
 
         // Estado: enviando
         submitBtn.disabled = true;
-        statusEl.textContent = 'Enviando…';
+        statusEl.textContent = 'Sending…';
         responseBox.style.display = 'none';
         responseEl.className = '';
         responseEl.textContent = '';
@@ -164,7 +164,7 @@
             responseBox.style.display = 'block';
 
             if (data.error) {
-                const isBlocked = data.error.toLowerCase().includes('bloqueada') || data.error.toLowerCase().includes('bloqueado');
+                const isBlocked = data.error.toLowerCase().includes('blocked');
                 responseEl.className = isBlocked ? 'blocked' : 'error';
                 responseEl.textContent = data.error;
             } else {
@@ -175,7 +175,7 @@
         } catch {
             responseBox.style.display = 'block';
             responseEl.className = 'error';
-            responseEl.textContent = 'Error de red. Comprueba tu conexión e inténtalo de nuevo.';
+            responseEl.textContent = 'Network error. Please check your connection and try again.';
             statusEl.textContent = '';
         } finally {
             submitBtn.disabled = false;
