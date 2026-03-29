@@ -6,7 +6,7 @@ if (file_exists(__DIR__ . '/config.php')) {
     require_once __DIR__ . '/config.php';
 } else {
     define('AI_API_KEY',    getenv('AI_API_KEY')    ?: '');
-    define('AI_MODEL',      getenv('AI_MODEL')      ?: 'gemini-1.5-flash');
+    define('AI_MODEL',      getenv('AI_MODEL')      ?: 'gemini-1.5-flash-8b');
     define('AI_MAX_TOKENS', (int)(getenv('AI_MAX_TOKENS') ?: 1024));
 }
 
